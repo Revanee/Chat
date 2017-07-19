@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Utente
  */
-@WebFilter(filterName = "LoggedFilter", urlPatterns = {"/room.html", "/Access", "/queue_selector.html"})
+@WebFilter(filterName = "LoggedFilter", urlPatterns = {"/room.html", "/Access"})
 public class LoggedFilter implements Filter {
     
     @Override

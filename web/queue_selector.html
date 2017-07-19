@@ -10,6 +10,7 @@ and open the template in the editor.
         <link rel="shortcut icon" href="favicon.png">
         <link rel="stylesheet" href="dep/bootstrap4/css/bootstrap.css" type="text/css"/>
         <script src="dep/jquery.js"></script>
+        <script src="scr/queue_selector.js"></script>
     </head>
     <body>
         <div class="container">
@@ -18,17 +19,21 @@ and open the template in the editor.
         
         <div class="container mt-5">
             <div class="row">
-                <div class=" col-6 ">
-                    <div class="card">
-                        <p class="card-header">Client</p>
-                        <p class="card-block">desctiption</p>
+                <div class="col-6">
+                    <div class="card helper">
+                        <a onclick="selectClient()" class="text-muted" style="text-decoration: none; cursor: pointer">
+                            <p class="card-header">Client</p>
+                            <p class="card-block">desctiption</p>
+                        </a>
                     </div>
                 </div>
                 
                 <div class="col-6">
-                    <div class="card">
-                        <p class="card-header">Helper</p>
-                        <p class="card-block">desctiption</p>
+                    <div class="card helper">
+                        <a onclick="selectHelper()" class="text-muted" style="text-decoration: none; cursor: pointer">
+                            <p class="card-header">Helper</p>
+                            <p class="card-block">desctiption</p>
+                        </a>
                     </div>
                 </div>
                 
