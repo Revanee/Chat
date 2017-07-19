@@ -27,6 +27,6 @@ function handleResponse(res) {
         
         document.cookie = "token=" + res.token;
         document.cookie = "user=" + res.user;
-        document.location = "room.html";
+        document.location = "queue_selector.html";
     }
 };

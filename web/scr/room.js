@@ -17,7 +17,7 @@ function sendMessage() {
     console.log('sending');
     $.ajax({
         type: 'POST',
-        url: 'Access?type=send',
+        url: 'Desk?type=send message',
         data: $('#form').serialize()
     });
     $(':input', '#form', ':text').val('');
@@ -26,7 +26,7 @@ function sendMessage() {
 let messages;
 function loadMessages() {
     let xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "Access", true);
+    xhttp.open("POST", "Desk", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -34,13 +34,13 @@ function loadMessages() {
             messages = [];
             messages = JSON.parse(this.responseText);
             messages.forEach(function (message) {
-                message.time = new Date(message.time);
+                //message.time = new Date(message.time);
                 addMessage(message);
             });
             scrollToBootom();
         }
     };
-    xhttp.send("type=messages");
+    xhttp.send("type=get messages");
     return false;
 }
 
@@ -70,7 +70,7 @@ function logout() {
 
 function startPollingMessages() {
     setTimeout( function () {
-        sendPost("Access", "type=messageAmmount", function (res) {
+        sendPost("Desk", "type=message ammount", function (res) {
             if (Number(messages.length) !== Number(res)) {
                 console.log("Need update:" + messages.length + " " + res);
                 loadMessages();
