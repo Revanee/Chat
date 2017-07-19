@@ -36,29 +36,27 @@ public class LoggedFilter implements Filter {
         
         String path = ((HttpServletRequest) request).getRequestURI();
         
-        //System.out.println(path);
-        if (path.startsWith("/Chat/scr/") ||
-            path.startsWith("/Chat/dep/") ||
-            path.equals("/Chat/") ||
-            path.equals("/Chat/login.html") ||
-            path.equals("/Chat/Login") ||
-            path.equals("/Chat/registration.html") ||
-            path.equals("/Chat/Register")) {
-            chain.doFilter(request, response);
-        } else {
+        if (!(path.startsWith("/Chat/scr/") ||
+        path.startsWith("/Chat/dep/") ||
+        path.equals("/Chat/") ||
+        path.equals("/Chat/favicon.png") ||
+        path.equals("/Chat/login.html") ||
+        path.equals("/Chat/Login") ||
+        path.equals("/Chat/registration.html") ||
+        path.equals("/Chat/Register"))) {
             try {
                 if (!Authenticator.checkValidToken(CookieGetter.getCookieValue("token", (HttpServletRequest)request))) {
                     System.out.println("User blocked");
                     ((HttpServletResponse)response).setStatus(403);
                     ((HttpServletResponse)response).sendRedirect("login.html");
-                }
+                } else chain.doFilter(request, response);
             } catch (NullPointerException e) {
                 System.out.println("Missing token");
                 System.out.println("User blocked");
                 ((HttpServletResponse)response).setStatus(403);
                 ((HttpServletResponse)response).sendRedirect("login.html");
             }
-        }
+        } else chain.doFilter(request, response);
     }
 
     @Override
