@@ -1,7 +1,6 @@
 package Authentication;
 
 import Database.UsersDB;
-import com.google.common.base.Charsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

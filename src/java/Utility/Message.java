@@ -14,4 +14,8 @@ public class Message {
         this.text = text;
         this.time = time;
     }
+    public Message(String user, String text) {
+        this.user = user;
+        this.text = text;
+    }
 }
