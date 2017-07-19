@@ -25,3 +25,8 @@ function getCookies () {
 function scrollToBootom() {
     window.scrollTo(0,document.body.scrollHeight);
 }
+
+function logout() {
+    document.cookie = "token=expired";
+    document.location = "login.html";
+}

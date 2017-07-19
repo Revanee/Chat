@@ -63,11 +63,6 @@ function addMessage(message) {
     }
 }
 
-function logout() {
-    document.cookie = "token=expired";
-    document.location = "login.html";
-}
-
 function startPollingMessages() {
     setTimeout( function () {
         sendPost("Desk", "type=message ammount", function (res) {
