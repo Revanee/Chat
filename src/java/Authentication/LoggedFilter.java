@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Utente
  */
-@WebFilter(filterName = "LoggedFilter", urlPatterns = {"/room.html", "/Access"})
+@WebFilter(filterName = "LoggedFilter", urlPatterns = {"/*"})
 public class LoggedFilter implements Filter {
     
     @Override
@@ -34,19 +34,31 @@ public class LoggedFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         
-        try {
-            if (!Authenticator.checkValidToken(CookieGetter.getCookieValue("token", (HttpServletRequest)request))) {
+        String path = ((HttpServletRequest) request).getRequestURI();
+        
+        //System.out.println(path);
+        if (path.startsWith("/Chat/scr/") ||
+            path.startsWith("/Chat/dep/") ||
+            path.equals("/Chat/") ||
+            path.equals("/Chat/login.html") ||
+            path.equals("/Chat/Login") ||
+            path.equals("/Chat/registration.html") ||
+            path.equals("/Chat/Register")) {
+            chain.doFilter(request, response);
+        } else {
+            try {
+                if (!Authenticator.checkValidToken(CookieGetter.getCookieValue("token", (HttpServletRequest)request))) {
+                    System.out.println("User blocked");
+                    ((HttpServletResponse)response).setStatus(403);
+                    ((HttpServletResponse)response).sendRedirect("login.html");
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Missing token");
                 System.out.println("User blocked");
-            ((HttpServletResponse)response).setStatus(403);
+                ((HttpServletResponse)response).setStatus(403);
+                ((HttpServletResponse)response).sendRedirect("login.html");
             }
-        } catch (NullPointerException e) {
-            System.out.println("Missing token");
-            System.out.println("User blocked");
-            ((HttpServletResponse)response).setStatus(403);
         }
-        
-        chain.doFilter(request, response);
-        
     }
 
     @Override
