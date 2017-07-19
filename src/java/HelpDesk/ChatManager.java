@@ -16,7 +16,6 @@ public class ChatManager {
     public static ArrayList<Message> getMessages(String id) {
         for (Chat chat : chats) {
             if (chat.userIsPresent(id)) {
-                System.out.println("Chat found!");
                 return chat.messages;
             }
         }

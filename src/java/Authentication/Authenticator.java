@@ -27,8 +27,6 @@ public class Authenticator {
 
             String hash = encrypt(encrypt(password) + userSalt);
 
-            System.out.println("User hash: " + userPassword);
-            System.out.println("This hash: " + hash);
             return (userPassword.equals(hash));
         } else return false;
     }
