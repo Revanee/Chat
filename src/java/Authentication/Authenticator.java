@@ -28,6 +28,7 @@ public class Authenticator {
     
     public static Boolean login(String user, String password) {
         if(match(user, password)){
+            TokenManager.removeUser(user);
             TokenManager.addToken(user);
             return true;
         } else return false;

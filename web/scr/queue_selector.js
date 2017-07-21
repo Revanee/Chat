@@ -10,9 +10,9 @@ function selectClient() {
 
 function handleResponse(res) {
     res = JSON.parse(res);
-    console.log(res);
     if (res.status === "waiting") {
         document.location = "waiting_room.html";
+    } else {
+        document.location = "Login";
     }
-    document.location = "waiting_room.html";
 }

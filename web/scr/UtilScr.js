@@ -4,7 +4,8 @@ function sendPost(url, params, callback) {
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.onreadystatechange = function () {
         if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
-            callback(http.responseText);
+            if (callback)
+                callback(http.responseText);
         } else if (this.status === 403) {
             window.location.href = 'login.html';
         }
@@ -27,6 +28,6 @@ function scrollToBootom() {
 }
 
 function logout() {
-    document.cookie = "token=expired";
-    document.location = "login.html";
+    sendPost("Logout");
+    document.location.href = "Login";
 }

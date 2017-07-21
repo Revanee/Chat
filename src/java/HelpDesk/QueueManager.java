@@ -17,7 +17,6 @@ public class QueueManager {
             user.queue = "users";
             users.add(user);
         }
-
         update();
     }
 

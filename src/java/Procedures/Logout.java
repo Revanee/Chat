@@ -20,6 +20,7 @@ public class Logout extends HttpServlet {
         Authenticator.logout(CookieGetter.getCookieValue("token", request));
         response.addCookie(new Cookie("token", "expired"));
         response.sendRedirect("login.html");
+        System.out.println("A user has logged out");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

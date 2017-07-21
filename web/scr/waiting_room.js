@@ -15,7 +15,6 @@ function handleResponse(res) {
         document.location = "login.html";
     if (res.status === "chatting")
         document.location = "room.html";
-    console.log(res);
     document.getElementById("status").innerHTML = res.status;
     document.getElementById("queue").innerHTML = res.queue;
 }
