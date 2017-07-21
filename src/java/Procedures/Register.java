@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
-   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,22 +24,22 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         String user = request.getParameter("user");
         String password = request.getParameter("password");
-        
+
         response.setContentType("application/json");
-        
+
         PrintWriter out = response.getWriter();
-        
+
         String status;
-        
-        if(UsersDB.userExists(user)) {
+
+        if (UsersDB.userExists(user)) {
             status = "existing user";
-        } else if(password.length() < 4) {
+        } else if (password.length() < 4) {
             status = "short password";
         } else {
             Authenticator.createUser(user, password);
             status = ("success");
         }
-        
+
         out.write("{\"status\": \"" + status + "\"}");
     }
 }

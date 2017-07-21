@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Database;
 
 import Utility.Message;
@@ -13,33 +8,29 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author Utente
- */
 public class MessagesDB {
-    
+
     public static void addMessage(String user, String text) {
-        
+
         //Generate dateTime
         java.util.Date dt = new java.util.Date();
-        java.text.SimpleDateFormat sdf = 
-             new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        java.text.SimpleDateFormat sdf
+                = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(dt);
-        
+
         //Try inserting in db
         try {
             Connection conn = Connector.getConnection();
             Statement stmt = conn.createStatement();
             stmt.execute("insert into messages (id, user, text, time) "
-                       + "values (" + (getLastMessageID() + 1) + ", \"" + user + "\", \"" + text + "\", \"" + currentTime + "\")");
+                    + "values (" + (getLastMessageID() + 1) + ", \"" + user + "\", \"" + text + "\", \"" + currentTime + "\")");
         } catch (SQLException e) {
             System.out.println("Error adding message to database: " + e);
         }
     }
-    
+
     public static int getLastMessageID() {
-        
+
         try {
             int id;
             Connection conn = Connector.getConnection();
@@ -53,21 +44,21 @@ public class MessagesDB {
             return -1;
         }
     }
-    
+
     public static ArrayList<Message> getMessages() {
         ArrayList<Message> messages = new ArrayList<Message>();
-        
+
         try {
             Connection conn = Connector.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet res = stmt.executeQuery("select * from messages");
-            while(res.next()){
+            while (res.next()) {
                 messages.add(new Message(res.getInt("id"), res.getString("user"), res.getString("text"), new Date(res.getTimestamp("time").getTime())));
             }
         } catch (SQLException e) {
             //System.out.println("Error getting messages from database: " + e);
         }
-        
+
         return messages;
     }
 }

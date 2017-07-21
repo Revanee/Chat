@@ -3,10 +3,10 @@ package HelpDesk;
 import java.util.ArrayList;
 
 public class QueueManager {
-    
+
     static ArrayList<User> helpers = new ArrayList<User>();
     static ArrayList<User> users = new ArrayList<User>();
-    
+
     public static void addUser(String id, String queue) {
         User user = new User(id);
         user.status = "waiting";
@@ -17,10 +17,10 @@ public class QueueManager {
             user.queue = "users";
             users.add(user);
         }
-        
+
         update();
     }
-    
+
     private static void update() {
         for (User user : users) {
             if (user.busy == false) {
@@ -31,12 +31,13 @@ public class QueueManager {
                         user.status = "chatting";
                         helper.status = "chatting";
                         ChatManager.addChat(user.id, helper.id);
+                        break;
                     }
                 }
             }
         }
     }
-    
+
     public static String checkStatus(String id, String queue) {
         if (queue.equals("helpers")) {
             return getUser(id, helpers).status;
@@ -46,23 +47,27 @@ public class QueueManager {
         }
         return null;
     }
-    
+
     private static User getUser(String id, ArrayList<User> queue) {
-       for(User user : queue) {
+        for (User user : queue) {
             if (user.id.equals(id)) {
                 return user;
             }
         }
         return null;
     }
-    
+
     public static User getUser(String id) {
         User temp = getUser(id, helpers);
-        if (temp != null) return temp;
-        
-        else temp = getUser(id, users);
-        if (temp != null) return temp;
-        
+        if (temp != null) {
+            return temp;
+        } else {
+            temp = getUser(id, users);
+        }
+        if (temp != null) {
+            return temp;
+        }
+
         return null;
     }
 }
