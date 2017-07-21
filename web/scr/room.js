@@ -34,7 +34,6 @@ function loadMessages() {
             messages = [];
             messages = JSON.parse(this.responseText);
             messages.forEach(function (message) {
-                //message.time = new Date(message.time);
                 addMessage(message);
             });
             scrollToBootom();

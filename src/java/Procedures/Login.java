@@ -3,6 +3,8 @@ package Procedures;
 import Authentication.Authenticator;
 import Authentication.TokenManager;
 import Database.UsersDB;
+import com.google.gson.JsonObject;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,7 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
-
+    static final Gson GSON = new Gson();
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,23 +34,22 @@ public class Login extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         
-        String token = "";
-        String status;
-        
+        JsonObject res = new JsonObject();
+        res.addProperty("user", user);
         if(UsersDB.userExists(user)) {
             if (Authenticator.match(user, password)) {
                 TokenManager.addToken(user);
-                token = TokenManager.getTokenFromUser(user);
-                status = "success";
+                res.addProperty("token", TokenManager.getTokenFromUser(user));
+                res.addProperty("status", "success");
             } else {
-                status = "wrong password";
+                res.addProperty("status", "wrong password");
             }
         } else {
-            status = "wrong user";
+            res.addProperty("status", "wrong user");
         }
         
-        out.write("{\"status\": \"" + status + "\", \"token\": \"" + token + "\", \"user\": \"" + user + "\"}");
-
+        out.write(GSON.toJson(res));
+        
     }
 
 }
