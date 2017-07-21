@@ -4,6 +4,8 @@ package Procedures;
 
 import Authentication.Authenticator;
 import Database.UsersDB;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
+    static final Gson GSON = new Gson();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -31,17 +34,17 @@ public class Register extends HttpServlet {
 
         PrintWriter out = response.getWriter();
 
-        String status;
-
+        JsonObject res = new JsonObject();
+        
         if (UsersDB.userExists(user)) {
-            status = "existing user";
+            res.addProperty("status", "existing user");
         } else if (password.length() < 4) {
-            status = "short password";
+            res.addProperty("status", "short password");
         } else {
             Authenticator.createUser(user, password);
-            status = ("success");
+            res.addProperty("status", "success");
         }
 
-        out.write("{\"status\": \"" + status + "\"}");
+        out.write(GSON.toJson(res));
     }
 }
