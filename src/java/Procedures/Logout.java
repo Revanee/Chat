@@ -1,6 +1,8 @@
 package Procedures;
 
-import Authentication.TokenManager;
+//Sets the login token to 'expired' and redirects to Login
+
+import Authentication.Authenticator;
 import Utility.CookieGetter;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,7 +17,7 @@ public class Logout extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        TokenManager.removeToken(CookieGetter.getCookieValue("token", request));
+        Authenticator.logout(CookieGetter.getCookieValue("token", request));
         response.addCookie(new Cookie("token", "expired"));
         response.sendRedirect("login.html");
     }

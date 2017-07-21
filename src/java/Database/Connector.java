@@ -2,9 +2,9 @@ package Database;
 
 import java.sql.*;
 
-public class Connector {
+class Connector {
 
-    public static Connection getConnection() {
+    protected static Connection getConnection() {
 
         //Register MySQL Driver for JDBC
         try {

@@ -1,5 +1,7 @@
 package Procedures;
 
+//Creates a new user in database
+
 import Authentication.Authenticator;
 import Database.UsersDB;
 import java.io.IOException;

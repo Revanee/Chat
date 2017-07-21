@@ -2,18 +2,18 @@ package Authentication;
 
 import java.util.ArrayList;
 
-public class TokenManager {
+class TokenManager {
 
     private static ArrayList<Token> tokens = new ArrayList<Token>();
 
-    public static void addToken(String user) {
+    protected static void addToken(String user) {
 
         if (!user.isEmpty()) {
             tokens.add(new TokenManager().new Token(user));
         }
     }
 
-    public static String getUserFromToken(String reqToken) {
+    protected static String getUserFromToken(String reqToken) {
         String user = null;
         for (Token itToken : tokens) {
             if (reqToken.equals(itToken.token)) {
@@ -23,7 +23,7 @@ public class TokenManager {
         return user;
     }
 
-    public static String getTokenFromUser(String reqUser) {
+    protected static String getTokenFromUser(String reqUser) {
         String token = null;
 
         for (Token itToken : tokens) {
@@ -35,7 +35,7 @@ public class TokenManager {
         return token;
     }
 
-    public static void removeToken(String token_str) {
+    protected static void removeToken(String token_str) {
         Token deleteCandidate = null;
         for (Token token : tokens) {
             if (token.token.equals(token_str)) {
@@ -47,7 +47,7 @@ public class TokenManager {
         }
     }
 
-    public static void removeUser(String user) {
+    protected static void removeUser(String user) {
         for (Token token : tokens) {
             if (token.user.equals(user)) {
                 tokens.remove(token);
@@ -55,7 +55,7 @@ public class TokenManager {
         }
     }
 
-    public static int getCurrentUsers() {
+    protected static int getCurrentUsers() {
         return tokens.size();
     }
 

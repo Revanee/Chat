@@ -17,7 +17,26 @@ public class Authenticator {
             System.out.println("Unable to initialize authenticatior: " + e);
         }
     }
-
+    
+    public static String getUser(String token) {
+        return TokenManager.getUserFromToken(token);
+    }
+    
+    public static String getToken(String token) {
+        return TokenManager.getTokenFromUser(token);
+    }
+    
+    public static Boolean login(String user, String password) {
+        if(match(user, password)){
+            TokenManager.addToken(user);
+            return true;
+        } else return false;
+    }
+    
+    public static void logout(String token) {
+        TokenManager.removeToken(token);
+    }
+    
     public static Boolean match(String user, String password) {
 
         if (UsersDB.userExists(user)) {
@@ -52,15 +71,14 @@ public class Authenticator {
         byte[] b;
         b = word.getBytes();
 
-        MessageDigest mesDig = null;
+        byte[] hash = null;
         try {
+            MessageDigest mesDig;
             mesDig = MessageDigest.getInstance("SHA-256");
+            hash = mesDig.digest(b);
         } catch (NoSuchAlgorithmException e) {
             System.out.println("Error instantiating md: " + e);
         }
-
-        byte[] hash;
-        hash = mesDig.digest(b);
 
         return DatatypeConverter.printHexBinary(hash);
     }

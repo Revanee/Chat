@@ -5,8 +5,6 @@
  */
 package Test;
 
-import Authentication.TokenManager;
-import Database.Connector;
 import Database.MessagesDB;
 import Database.UsersDB;
 import java.io.IOException;

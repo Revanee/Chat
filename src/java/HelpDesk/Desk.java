@@ -1,6 +1,6 @@
 package HelpDesk;
 
-import Authentication.TokenManager;
+import Authentication.Authenticator;
 import Utility.CookieGetter;
 import Utility.Message;
 import com.google.gson.Gson;
@@ -25,7 +25,7 @@ public class Desk extends HttpServlet {
         Gson gson = new Gson();
 
         String type = request.getParameter("type");
-        String id = TokenManager.getUserFromToken(CookieGetter.getCookieValue("token", request));
+        String id = Authenticator.getUser(CookieGetter.getCookieValue("token", request));
 
         if (type.equals("enter queue")) {
             String queueName = request.getParameter("queueName");

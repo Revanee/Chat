@@ -1,7 +1,6 @@
 package Procedures;
 
 import Authentication.Authenticator;
-import Authentication.TokenManager;
 import Database.UsersDB;
 import com.google.gson.JsonObject;
 import com.google.gson.Gson;
@@ -12,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+//Gives a login token and status in JSON to the requesting page
 
 @WebServlet(name = "Login", urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
@@ -37,9 +38,8 @@ public class Login extends HttpServlet {
         JsonObject res = new JsonObject();
         res.addProperty("user", user);
         if(UsersDB.userExists(user)) {
-            if (Authenticator.match(user, password)) {
-                TokenManager.addToken(user);
-                res.addProperty("token", TokenManager.getTokenFromUser(user));
+            if (Authenticator.login(user, password)) {
+                res.addProperty("token", Authenticator.getToken(user));
                 res.addProperty("status", "success");
             } else {
                 res.addProperty("status", "wrong password");
