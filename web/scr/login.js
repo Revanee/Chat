@@ -1,7 +1,7 @@
 function login() {
     let formData = document.getElementById('form').elements;
     params = "user=" + formData.user.value +
-             "&password=" + formData.password.value;
+            "&password=" + formData.password.value;
     sendPost('Login', params, handleResponse);
 }
 
@@ -24,9 +24,10 @@ function handleResponse(res) {
         $('.password').addClass('has-success').removeClass('has-danger');
         $('.user > .form-control-feedback')[0].innerHTML = '';
         $('.password > .form-control-feedback')[0].innerHTML = '';
-        
+
         document.cookie = "token=" + res.token;
         document.cookie = "user=" + res.user;
         document.location = "queue_selector.html";
     }
-};
+}
+;

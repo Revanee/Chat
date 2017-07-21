@@ -2,8 +2,8 @@ function sendPost(url, params, callback) {
     http = new XMLHttpRequest();
     http.open('POST', url);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.onreadystatechange = function() {
-        if(http.readyState === XMLHttpRequest.DONE && http.status === 200) {
+    http.onreadystatechange = function () {
+        if (http.readyState === XMLHttpRequest.DONE && http.status === 200) {
             callback(http.responseText);
         } else if (this.status === 403) {
             window.location.href = 'login.html';
@@ -12,7 +12,7 @@ function sendPost(url, params, callback) {
     http.send(params);
 }
 
-function getCookies () {
+function getCookies() {
     let arr = document.cookie.split('; ');
     let cookies = {};
     arr.forEach(function (c) {
@@ -23,7 +23,7 @@ function getCookies () {
 }
 
 function scrollToBootom() {
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 function logout() {

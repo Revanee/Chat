@@ -47,24 +47,24 @@ function loadMessages() {
 function addMessage(message) {
     if (getCookies().user === message.user) {
         $('#messages').append(
-            $('#msgTemplate').clone()
-            .find('.user').text(message.user).end()
-            .find('.messageText').text(message.text).end()
-            .find('.time').text(dateFormat(message.time, 'h:MM TT')).end()
-            .find('.card').addClass('float-right')
-        );
+                $('#msgTemplate').clone()
+                .find('.user').text(message.user).end()
+                .find('.messageText').text(message.text).end()
+                .find('.time').text(dateFormat(message.time, 'h:MM TT')).end()
+                .find('.card').addClass('float-right')
+                );
     } else {
         $('#messages').append(
-            $('#msgTemplate').clone()
-            .find('.user').text(message.user).end()
-            .find('.messageText').text(message.text).end()
-            .find('.time').text(dateFormat(message.time, 'h:MM TT')).end()
-        );
+                $('#msgTemplate').clone()
+                .find('.user').text(message.user).end()
+                .find('.messageText').text(message.text).end()
+                .find('.time').text(dateFormat(message.time, 'h:MM TT')).end()
+                );
     }
 }
 
 function startPollingMessages() {
-    setTimeout( function () {
+    setTimeout(function () {
         sendPost("Desk", "type=message ammount", function (res) {
             if (Number(messages.length) !== Number(res)) {
                 console.log("Need update:" + messages.length + " " + res);

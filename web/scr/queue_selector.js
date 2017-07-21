@@ -1,9 +1,9 @@
-function selectHelper () {
+function selectHelper() {
     console.log("helper");
     sendPost("Desk", "type=enter queue&queueName=helpers", handleResponse);
 }
 
-function selectClient () {
+function selectClient() {
     console.log("client");
     sendPost("Desk", "type=enter queue&queueName=users", handleResponse);
 }

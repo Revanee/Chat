@@ -9,24 +9,24 @@
         <script src="dep/date.format.js"></script>
         <script src="scr/UtilScr.js"></script>
         <script src="scr/room.js"></script>
-        
+
     </head>
     <body style="margin-top: 20vh; background-color: #ededed">
-        
+
         <nav class="navbar navbar-light bg-faded fixed-top">
             <div class="line">
                 <h1 class="display-4 text-center">Welcome, <span id="userName">user</span>!
                     <span>
-                    <button class="btn btn-outline-danger" onclick="logout()">Log out</button>
+                        <button class="btn btn-outline-danger" onclick="logout()">Log out</button>
                     </span>
                 </h1>
             </div>
         </nav>
-        
+
         <div class="container">
             <div class=" mh-25" id="messages"></div>            
         </div>
-        
+
         <div class="container" style="display: none">
             <div id="msgTemplate">
                 <div class="card mb-2 w-75 message">
@@ -44,7 +44,7 @@
                 </div>    
             </div>
         </div>
-        
+
         <div class="footer" style="visibility: hidden">
             <div class="container-fluid">
                 <form>
@@ -59,7 +59,7 @@
                 </form>
             </div>
         </div>
-        
+
         <footer class="footer fixed-bottom" id="footer">
             <div class="container-fluid">
                 <form id="form" onsubmit="sendMessage()">
@@ -74,6 +74,6 @@
                 </form>
             </div>
         </footer>
-        
+
     </body>
 </html>
