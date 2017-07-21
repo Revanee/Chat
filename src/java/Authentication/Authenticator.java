@@ -53,7 +53,7 @@ public class Authenticator {
     }
 
     public static Boolean checkValidToken(String reqToken) {
-        return (TokenManager.getUserFromToken(reqToken) != null && !TokenManager.getUserFromToken(reqToken).isEmpty());
+        return (TokenManager.getUserFromToken(reqToken) != null);
     }
 
     public static void createUser(String user, String password) {

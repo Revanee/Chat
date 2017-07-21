@@ -35,16 +35,9 @@ public class LoggedFilter implements Filter {
                 || path.equals("/Chat/Login")
                 || path.equals("/Chat/registration.html")
                 || path.equals("/Chat/Register"))) {
-            try {
-                if (!Authenticator.checkValidToken(CookieGetter.getCookieValue("token", (HttpServletRequest) request))) {
-                    System.out.println("User blocked");
-                    ((HttpServletResponse) response).setStatus(403);
-                    ((HttpServletResponse) response).sendRedirect("login.html");
-                } else {
-                    chain.doFilter(request, response);
-                }
-            } catch (NullPointerException e) {
-                System.out.println("Missing token");
+            if (Authenticator.checkValidToken(CookieGetter.getCookieValue("token", (HttpServletRequest) request))) {
+                chain.doFilter(request, response);
+            } else {
                 System.out.println("User blocked");
                 ((HttpServletResponse) response).setStatus(403);
                 ((HttpServletResponse) response).sendRedirect("login.html");

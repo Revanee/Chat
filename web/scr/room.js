@@ -32,11 +32,16 @@ function loadMessages() {
         if (this.readyState === 4 && this.status === 200) {
             $('#messages')[0].innerHTML = "";
             messages = [];
+            try {
             messages = JSON.parse(this.responseText);
             messages.forEach(function (message) {
                 addMessage(message);
             });
             scrollToBootom();
+            } catch (e) {
+                console.log(e);
+                document.location.href = "Login";
+            }
         }
     };
     xhttp.send("type=get messages");

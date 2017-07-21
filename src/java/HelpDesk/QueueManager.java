@@ -10,14 +10,22 @@ public class QueueManager {
     public static void addUser(String id, String queue) {
         User user = new User(id);
         user.status = "waiting";
-        if (queue.equals("helpers")) {
-            user.queue = "helpers";
-            helpers.add(user);
-        } else if (queue.equals("users")) {
-            user.queue = "users";
-            users.add(user);
+        for (User usr : users) {
+            if (usr.id.equals(id)) {
+                user.status = "rejected";
+            }
         }
-        update();
+        
+        if (!user.status.equals("rejected")) {
+            if (queue.equals("helpers")) {
+                user.queue = "helpers";
+                helpers.add(user);
+            } else if (queue.equals("users")) {
+                user.queue = "users";
+                users.add(user);
+            }
+            update();
+        }
     }
 
     private static void update() {
