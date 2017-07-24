@@ -40,7 +40,7 @@ function loadMessages() {
                 scrollToBootom();
             } catch (e) {
                 console.log(e);
-                document.location.href = "Login";
+                checkUserStatus();
             }
         }
     };
@@ -69,8 +69,7 @@ function addMessage(message) {
 
 function startPollingMessages() {
     setTimeout(function () {
-        console.log("polling...");
-        if (window.location.href.substr(window.location.href.lastIndexOf('/')) === "/room.html") {
+        if (getLocation() === "/room.html") {
             sendPost("Desk", "type=message ammount", function (res) {
                 if (Number(res) === -1) {
                     window.location.href = "queue_selector.html";
@@ -79,6 +78,7 @@ function startPollingMessages() {
                     console.log("Need update:" + messages.length + " " + res);
                     loadMessages();
                 }
+                checkUserStatus();
             });
             startPollingMessages();
         } else

@@ -31,3 +31,20 @@ function logout() {
     sendPost("Logout");
     document.location.href = "Login";
 }
+
+function checkUserStatus() {
+    sendPost("Desk", "type=check status", function (res){
+        res = JSON.parse(res);
+        if (res.status === "waiting") ensureLocation("waiting_room.html");
+        if (res.status === "chatting") ensureLocation("room.html");
+        if (res.status === "idle") ensureLocation("queue_selector.html");
+    });
+}
+
+function getLocation() {
+    return window.location.href.substr(window.location.href.lastIndexOf('/'));
+}
+
+function ensureLocation(loc) {
+    if (getLocation() !== "/" + loc) window.location.href = loc;
+}

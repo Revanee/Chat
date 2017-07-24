@@ -1,6 +1,7 @@
 package Authentication;
 
 import Database.UsersDB;
+import HelpDesk.UserManager;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -30,6 +31,7 @@ public class Authenticator {
         if(match(user, password)){
             TokenManager.removeUser(user);
             TokenManager.addToken(user);
+            if(UserManager.getUser(user) == null) UserManager.addUser(user);
             return true;
         } else return false;
     }

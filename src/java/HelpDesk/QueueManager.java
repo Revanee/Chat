@@ -1,17 +1,17 @@
 package HelpDesk;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 class QueueManager {
 
     static ArrayList<User> helpers = new ArrayList<User>();
     static ArrayList<User> users = new ArrayList<User>();
 
-    public static void addUser(String id, String queue) {
-        User user = new User(id);
+    public static void addUser(User user, String queue) {
         user.status = "waiting";
         for (User usr : users) {
-            if (usr.id.equals(id)) {
+            if (usr.name.equals(user.name)) {
                 user.status = "rejected";
             }
         }
@@ -24,22 +24,28 @@ class QueueManager {
                 user.queue = "users";
                 users.add(user);
             }
-            update();
         }
     }
 
-    private static void update() {
-        for (User user : users) {
-            if (user.busy == false) {
-                for (User helper : helpers) {
-                    if (helper.busy == false) {
-                        user.busy = true;
-                        helper.busy = true;
-                        user.status = "chatting";
-                        helper.status = "chatting";
-                        ChatManager.addChat(user, helper);
-                        break;
-                    }
+    public static void update() {
+        
+        Iterator<User> user_i = users.iterator();
+        Iterator<User> helper_i = helpers.iterator();
+        
+        while(user_i.hasNext()) {
+            User user = user_i.next();
+            while(helper_i.hasNext()) {
+                User helper = helper_i.next();
+                if (helper.busy == false) {
+                    user.busy = true;
+                    helper.busy = true;
+                    user.status = "chatting";
+                    helper.status = "chatting";
+                    Chat chat = new Chat();
+                    user.chat = chat;
+                    helper.chat = chat;
+                    
+                    break;
                 }
             }
         }
@@ -48,12 +54,12 @@ class QueueManager {
     public static void removeUser (String id) {
         ArrayList<User> deleteCandidates = new ArrayList<User>();
         for (User user : users) {
-            if (user.id.equals(id)) {
+            if (user.name.equals(id)) {
                 deleteCandidates.add(user);
             }
         }
         for (User user : helpers) {
-            if (user.id.equals(id)) {
+            if (user.name.equals(id)) {
                 deleteCandidates.add(user);
             }
         }
@@ -75,7 +81,7 @@ class QueueManager {
 
     private static User getUser(String id, ArrayList<User> queue) {
         for (User user : queue) {
-            if (user.id.equals(id)) {
+            if (user.name.equals(id)) {
                 return user;
             }
         }

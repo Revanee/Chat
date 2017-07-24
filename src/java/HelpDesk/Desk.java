@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Desk extends HttpServlet {
     
     public static void logout(String token) {
-        ChatManager.removeChats(Authenticator.getUser(token));
+        UserManager.removeUser(Authenticator.getUser(token));
         QueueManager.removeUser(Authenticator.getUser(token));
     }
     
@@ -32,30 +32,31 @@ public class Desk extends HttpServlet {
         String type = request.getParameter("type");
         String id = Authenticator.getUser(CookieGetter.getCookieValue("token", request));
 
+        System.out.println("Request type: " + type);
+        
         if (type.equals("enter queue")) {
             String queueName = request.getParameter("queueName");
-            QueueManager.addUser(id, queueName);
-            out.write(gson.toJson(QueueManager.getUser(id)));
+            UserManager.sendToQueue(id, queueName);
+            out.write(gson.toJson(UserManager.getUser(id)));
         }
 
         if (type.equals("check status")) {
-            out.write(gson.toJson(QueueManager.getUser(id)));
+            out.write(gson.toJson(UserManager.getUser(id)));
         }
 
         if (type.equals("get messages")) {
-            ArrayList<Message> messages = ChatManager.getMessages(id);
-            out.write(gson.toJson(messages, new TypeToken<ArrayList<Message>>() {
+            System.out.println(UserManager.getUser(id).getMessages());
+            out.write(gson.toJson(UserManager.getUser(id).getMessages(), new TypeToken<ArrayList<Message>>() {
             }.getType()));
         }
 
         if (type.equals("send message")) {
-            ChatManager.addMessage(id, request.getParameter("message"));
+            UserManager.getUser(id).send(request.getParameter("message"));
         }
 
         if (type.equals("message ammount")) {
             try {
-                ArrayList<Message> messages = ChatManager.getMessages(id);
-                out.print(messages.size());
+                out.print(UserManager.getUser(id).getMessages().size());
             } catch (NullPointerException e) {
                 out.print(-1);
             }
