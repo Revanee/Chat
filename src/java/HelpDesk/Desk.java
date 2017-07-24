@@ -16,7 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Desk", urlPatterns = {"/Desk"})
 public class Desk extends HttpServlet {
-
+    
+    public static void logout(String token) {
+        ChatManager.removeChats(Authenticator.getUser(token));
+        QueueManager.removeUser(Authenticator.getUser(token));
+    }
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,8 +53,12 @@ public class Desk extends HttpServlet {
         }
 
         if (type.equals("message ammount")) {
-            ArrayList<Message> messages = ChatManager.getMessages(id);
-            out.print(messages.size());
+            try {
+                ArrayList<Message> messages = ChatManager.getMessages(id);
+                out.print(messages.size());
+            } catch (NullPointerException e) {
+                out.print(-1);
+            }
         }
     }
 

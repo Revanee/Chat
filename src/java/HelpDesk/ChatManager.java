@@ -3,11 +3,11 @@ package HelpDesk;
 import Utility.Message;
 import java.util.ArrayList;
 
-public class ChatManager {
+class ChatManager {
 
     static ArrayList<Chat> chats = new ArrayList<Chat>();
 
-    public static void addChat(String u1, String u2) {
+    public static void addChat(User u1, User u2) {
         Chat chat = new Chat();
         chat.addUser(u1);
         chat.addUser(u2);
@@ -33,13 +33,31 @@ public class ChatManager {
         }
     }
     
+    public static void removeChats(String id) {
+        ArrayList<Chat> deleteCandidates = new ArrayList<Chat>();
+        for (Chat chat : chats) {
+            if (chat.userIsPresent(id)) {
+                deleteCandidates.add(chat);
+            }
+        }
+        for (Chat candidate : deleteCandidates) {
+            candidate.end();
+            chats.remove(candidate);
+        }
+    }    
     
     private static class Chat {
 
         ArrayList<Message> messages = new ArrayList<Message>();
-        ArrayList<String> users = new ArrayList<String>();
+        ArrayList<User> users = new ArrayList<User>();
 
-        public void addUser(String user) {
+        public void end() {
+            for (User user : users) {
+                QueueManager.removeUser(user.id);
+            }
+        }
+        
+        public void addUser(User user) {
             users.add(user);
         }
 
@@ -48,7 +66,11 @@ public class ChatManager {
         }
 
         public Boolean userIsPresent(String user) {
-            return users.contains(user);
+            Boolean res = false;
+            for (User usr : users) {
+                if (usr.id.equals(user)) res = true;
+            }
+            return res;
         }
     }
 }

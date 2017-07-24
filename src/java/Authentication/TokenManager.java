@@ -15,12 +15,15 @@ class TokenManager {
 
     protected static String getUserFromToken(String reqToken) {
         String user = null;
-        for (Token itToken : tokens) {
-            if (reqToken.equals(itToken.token)) {
-                user = itToken.user;
+        try {
+            for (Token itToken : tokens) {
+                if (reqToken.equals(itToken.token)) {
+                    user = itToken.user;
+                }
             }
+        } finally {
+            return user;
         }
-        return user;
     }
 
     protected static String getTokenFromUser(String reqUser) {
@@ -48,10 +51,17 @@ class TokenManager {
     }
 
     protected static void removeUser(String user) {
+        
+        ArrayList<Token> deleteCandidates = new ArrayList<Token>();
+        
         for (Token token : tokens) {
             if (token.user.equals(user)) {
-                tokens.remove(token);
+                deleteCandidates.add(token);
             }
+        }
+        
+        for (Token candidate : deleteCandidates) {
+            tokens.remove(candidate);
         }
     }
 

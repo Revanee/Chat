@@ -33,11 +33,11 @@ function loadMessages() {
             $('#messages')[0].innerHTML = "";
             messages = [];
             try {
-            messages = JSON.parse(this.responseText);
-            messages.forEach(function (message) {
-                addMessage(message);
-            });
-            scrollToBootom();
+                messages = JSON.parse(this.responseText);
+                messages.forEach(function (message) {
+                    addMessage(message);
+                });
+                scrollToBootom();
             } catch (e) {
                 console.log(e);
                 document.location.href = "Login";
@@ -69,12 +69,19 @@ function addMessage(message) {
 
 function startPollingMessages() {
     setTimeout(function () {
-        sendPost("Desk", "type=message ammount", function (res) {
-            if (Number(messages.length) !== Number(res)) {
-                console.log("Need update:" + messages.length + " " + res);
-                loadMessages();
-            }
-        });
-        startPollingMessages();
+        console.log("polling...");
+        if (window.location.href.substr(window.location.href.lastIndexOf('/')) === "/room.html") {
+            sendPost("Desk", "type=message ammount", function (res) {
+                if (Number(res) === -1) {
+                    window.location.href = "queue_selector.html";
+                } else if (Number(messages.length) !== Number(res)) {
+
+                    console.log("Need update:" + messages.length + " " + res);
+                    loadMessages();
+                }
+            });
+            startPollingMessages();
+        } else
+            console.log("Stop polling messages");
     }, 1000);
 }

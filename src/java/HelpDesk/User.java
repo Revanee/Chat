@@ -1,6 +1,6 @@
 package HelpDesk;
 
-public class User {
+class User {
 
     String id;
     Boolean busy = false;

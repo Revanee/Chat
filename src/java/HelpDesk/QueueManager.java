@@ -2,7 +2,7 @@ package HelpDesk;
 
 import java.util.ArrayList;
 
-public class QueueManager {
+class QueueManager {
 
     static ArrayList<User> helpers = new ArrayList<User>();
     static ArrayList<User> users = new ArrayList<User>();
@@ -37,11 +37,29 @@ public class QueueManager {
                         helper.busy = true;
                         user.status = "chatting";
                         helper.status = "chatting";
-                        ChatManager.addChat(user.id, helper.id);
+                        ChatManager.addChat(user, helper);
                         break;
                     }
                 }
             }
+        }
+    }
+    
+    public static void removeUser (String id) {
+        ArrayList<User> deleteCandidates = new ArrayList<User>();
+        for (User user : users) {
+            if (user.id.equals(id)) {
+                deleteCandidates.add(user);
+            }
+        }
+        for (User user : helpers) {
+            if (user.id.equals(id)) {
+                deleteCandidates.add(user);
+            }
+        }
+        for (User candidate : deleteCandidates) {
+            users.remove(candidate);
+            helpers.remove(candidate);
         }
     }
 
