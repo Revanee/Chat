@@ -20,9 +20,11 @@ public class UserManager {
 
     public static User getUser(String name) {
         for (User user : users) {
-            System.out.println(user.name);
             if (user.name.equals(name)) {
-                if (user.chat != null) if (user.chat.ended) user.status = "idle";
+                if (user.chat != null) if (user.chat.ended) {
+                    user.status = "idle";
+                    user.chat = null;
+                }
                 return user;
             }
         }
