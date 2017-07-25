@@ -31,8 +31,6 @@ public class Desk extends HttpServlet {
 
         String type = request.getParameter("type");
         String id = Authenticator.getUser(CookieGetter.getCookieValue("token", request));
-
-        System.out.println("Request type: " + type);
         
         if (type.equals("enter queue")) {
             String queueName = request.getParameter("queueName");

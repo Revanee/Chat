@@ -28,25 +28,39 @@ class QueueManager {
     }
 
     public static void update() {
+        setOrder();
         
         Iterator<User> user_i = users.iterator();
         Iterator<User> helper_i = helpers.iterator();
         
         while(user_i.hasNext()) {
             User user = user_i.next();
-            while(helper_i.hasNext()) {
-                User helper = helper_i.next();
-                if (helper.busy == false) {
-                    user.busy = true;
-                    helper.busy = true;
-                    user.status = "chatting";
-                    helper.status = "chatting";
-                    Chat chat = new Chat();
-                    user.chat = chat;
-                    helper.chat = chat;
-                    
-                    break;
+            if (!user.busy) {
+                while(helper_i.hasNext()) {
+                    User helper = helper_i.next();
+                    if (!helper.busy) {
+                        user.busy = true;
+                        helper.busy = true;
+                        user.status = "chatting";
+                        helper.status = "chatting";
+                        Chat chat = new Chat();
+                        user.chat = chat;
+                        helper.chat = chat;
+                        setOrder();
+                        break;
+                    }
                 }
+            }
+        }
+    }
+    
+    private static void setOrder() {
+        int i = 0;
+        for (User user : users) {
+            if (!user.busy){
+                System.out.println("User: " + user.name);
+                user.order = i;
+                i++;
             }
         }
     }

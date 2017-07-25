@@ -17,4 +17,5 @@ function handleResponse(res) {
         document.location = "room.html";
     document.getElementById("status").innerHTML = res.status;
     document.getElementById("queue").innerHTML = res.queue;
+    document.getElementById("order").innerHTML = res.order;
 }

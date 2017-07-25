@@ -10,6 +10,7 @@ class User {
     String status = "idle";
     String queue;
     Chat chat = null;
+    int order;
 
     User(String name) {
         this.name = name;
