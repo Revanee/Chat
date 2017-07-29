@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<static-verification>
+<error>
+<error-name>Problem in running tests for :Chat</error-name>
+<error-description>java.net.ConnectException: Connection timed out: connect&#13;
+	at java.net.PlainSocketImpl.socketConnect(Native Method)&#13;
+	at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:351)&#13;
+	at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:213)&#13;
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:200)&#13;
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366)&#13;
+	at java.net.Socket.connect(Socket.java:529)&#13;
+	at java.net.Socket.connect(Socket.java:478)&#13;
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:163)&#13;
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:411)&#13;
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:525)&#13;
+	at sun.net.www.http.HttpClient.&lt;init&gt;(HttpClient.java:208)&#13;
+	at sun.net.www.http.HttpClient.New(HttpClient.java:291)&#13;
+	at sun.net.www.http.HttpClient.New(HttpClient.java:310)&#13;
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:987)&#13;
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:923)&#13;
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:841)&#13;
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1195)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityManager.setupCurrentEntity(XMLEntityManager.java:675)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityManager.startEntity(XMLEntityManager.java:1313)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityManager.startDTDEntity(XMLEntityManager.java:1280)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLDTDScannerImpl.setInputSource(XMLDTDScannerImpl.java:283)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$DTDDriver.dispatch(XMLDocumentScannerImpl.java:1191)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$DTDDriver.next(XMLDocumentScannerImpl.java:1087)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl$PrologDriver.next(XMLDocumentScannerImpl.java:1000)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:647)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl.next(XMLNSDocumentScannerImpl.java:140)&#13;
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:511)&#13;
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:808)&#13;
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:737)&#13;
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:119)&#13;
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:232)&#13;
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:284)&#13;
+	at com.sun.enterprise.tools.verifier.BaseVerifier.createDOMObject(BaseVerifier.java:162)&#13;
+	at com.sun.enterprise.tools.verifier.BaseVerifier.createDocumentObject(BaseVerifier.java:115)&#13;
+	at com.sun.enterprise.tools.verifier.BaseVerifier.verify(BaseVerifier.java:147)&#13;
+	at com.sun.enterprise.tools.verifier.web.WebVerifier.verify(WebVerifier.java:96)&#13;
+	at com.sun.enterprise.tools.verifier.Verifier.runVerifier(Verifier.java:391)&#13;
+	at com.sun.enterprise.tools.verifier.Verifier.verifyArchive(Verifier.java:330)&#13;
+	at com.sun.enterprise.tools.verifier.Verifier.verify(Verifier.java:214)&#13;
+	at com.sun.enterprise.tools.verifier.VerifierMain.main(VerifierMain.java:87)&#13;
+</error-description>
+</error>
+<failure-count>
+<failure-number>0</failure-number>
+<warning-number>0</warning-number>
+<error-number>1</error-number>
+</failure-count>
+</static-verification>

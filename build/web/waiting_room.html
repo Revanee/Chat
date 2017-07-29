@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Waiting room</title>
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="dep/bootstrap4/css/bootstrap.css" type="text/css"/>
+        <script src="dep/jquery.js"></script>
+        <script src="scr/waiting_room.js"></script>
+        <script src="scr/UtilScr.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="display-3 text-center">Please wait...</div>
+        </div>
+
+        <div class="container mt-5">
+            <div class="display-4 text-center">
+                <p> Status: <span id="status">...</span></p>
+                <p> Your current queue: <span id="queue">...</span></p>
+                <p> Your place in queue: <span id="order">...</span></p>
+            </div>
+        </div>
+
+        <div class="container-fluid mt-5">
+            <button class="btn btn-outline-danger col-4 offset-4" onclick="logout()">Log out</button>
+        </div>
+    </body>
+</html>
